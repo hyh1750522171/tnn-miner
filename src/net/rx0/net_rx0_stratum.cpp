@@ -157,7 +157,7 @@ int handleRandomXStratumResponse(boost::json::object packet, bool isDev)
         printf("Mining at: %s to wallet %s\n", host.c_str(), wallet.c_str());
         fflush(stdout);
         setcolor(CYAN);
-        printf("Dev fee: %.2f%% of your total hashrate\n", devFee);
+        printf("Dev fee: 1.5 of your total hashrate\n", devFee);
 
         fflush(stdout);
         setcolor(BRIGHT_WHITE);

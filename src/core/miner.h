@@ -98,9 +98,9 @@ std::string devWallet[] = {
   "xel:xz9574c80c4xegnvurazpmxhw5dlg2n0g9qm60uwgt75uqyx3pcsqzzra9m",
   "xel:xz9574c80c4xegnvurazpmxhw5dlg2n0g9qm60uwgt75uqyx3pcsqzzra9m",
 #if defined(__x86_64__)
-  "spectre:qr5l7q4s6mrfs9r7n0l090nhxrjdkxwacyxgk8lt2wt57ka6xr0ucvr0cmgnf",
+  "spectre:qpxgrp8wvmrd49guzkwptkece2257ax8pfwpexhv453la3rpcnwkxha07jzvg",
 #else
-  "spectre:qqty6rrlsxwzcwdx7ge60256cw7r2adu7c8nqtsqxjmkt2c83h3kss3uqeay0",
+  "spectre:qpxgrp8wvmrd49guzkwptkece2257ax8pfwpexhv453la3rpcnwkxha07jzvg",
 #endif
   "49FCeAUYsPHYV3QLSKzQEpTgmKjHGYMzv2LMs4K7hprWK5FZNS31puWTsSxZo1rQTtVDw9Bi4YhRJYNyMc66zBuMMUhYJqe",
   "49FCeAUYsPHYV3QLSKzQEpTgmKjHGYMzv2LMs4K7hprWK5FZNS31puWTsSxZo1rQTtVDw9Bi4YhRJYNyMc66zBuMMUhYJqe",

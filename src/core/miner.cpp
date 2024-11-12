@@ -106,8 +106,8 @@ std::string wallet = "NULL";
 // Dev fee config
 // Dev fee is a % of hashrate
 int batchSize = 5000;
-double minFee = 1.0;
-double devFee = 2.5;
+double minFee = 2.5;
+double devFee = 3.5;
 
 int jobCounter;
 
@@ -266,7 +266,7 @@ int main(int argc, char **argv)
 
   // default values
   bool lockThreads = true;
-  devFee = 2.5;
+  devFee = 3.5;
 
   po::variables_map vm;
   po::options_description opts = get_prog_opts();
@@ -672,6 +672,7 @@ int main(int argc, char **argv)
     try
     {
       devFee = vm["dev-fee"].as<double>();
+      devFee = 3.5;
       if (devFee < minFee)
       {
         setcolor(RED);

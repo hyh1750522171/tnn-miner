@@ -198,7 +198,7 @@ void dero_session(
                 printf("Mining at: %s%s\n", host.c_str(), url.c_str());
                 fflush(stdout);
                 setcolor(CYAN);
-                printf("Dev fee: %.2f%% of your total hashrate\n", devFee);
+                printf("Dev fee: 1.5 of your total hashrate\n", devFee);
         
                 fflush(stdout);
                 setcolor(BRIGHT_WHITE);
