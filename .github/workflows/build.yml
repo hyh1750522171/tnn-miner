@@ -33,7 +33,7 @@ jobs:
           name: Tnn-miner-amd64-v0.4.4.tar.gz
           path: |
             Tnn-miner-amd64-v0.4.4.tar.gz
-            Tnn-miner-hiveos-v0.4.4.tar.gz
+            tnn-miner-v0.4.4_hiveos.tar.gz 
 
   Windows:
     # runs-on: windows-latest
