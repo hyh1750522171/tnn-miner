@@ -57,7 +57,7 @@ std::string defaultHost[] = {
   "dero-node-sk.mysrv.cloud",
   "fr.vipor.net", // xel
   "fr.vipor.net",
-  "spectre.cedric-crispin.com", // spr
+  "127.0.0.1", // spr
   "monerohash.com", // rx0
   "monerohash.com",
   "monerohash.com",
