@@ -65,6 +65,8 @@ jobs:
       #     xcode-version: latest
       # - name: 设置docker
       #   uses: docker/setup-buildx-action@v2
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
       - name: Build for macOS
         run: |
           brew install docker
