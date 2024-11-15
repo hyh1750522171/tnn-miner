@@ -67,7 +67,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Build for macOS
         run: |
-          docker buildx build --platform=linux/arm64 --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-arm64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
+          docker build --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-arm64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
       - name: Create artifacts
         uses: actions/upload-artifact@v3
         with:
