@@ -65,11 +65,12 @@ jobs:
       #     xcode-version: latest
       # - name: 设置docker
       #   uses: docker/setup-buildx-action@v2
-      - name: Setup Docker on macOS
-        uses: douglascamata/setup-docker-macos-action@v1-alpha
       - name: Build for macOS
         run: |
-          docker build --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-arm64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
+          brew install docker
+          docker ps -a
+          docker -v
+          docker buildx build --platform=linux/amd64 --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-arm64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
       - name: Create artifacts
         uses: actions/upload-artifact@v3
         with:
