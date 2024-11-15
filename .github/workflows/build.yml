@@ -8,81 +8,68 @@ on:
       - "v*.*.*"
 
 jobs:
-  build-linux-amd64:
-    runs-on: ubuntu-latest
+  # build-linux-amd64:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 克隆代码
+  #       uses: actions/checkout@v3
+  #     - name: 设置docker
+  #       uses: docker/setup-buildx-action@v2
+  #     - name: Build for Linux AMD64
+  #       run: |
+  #         docker buildx build --platform=linux/amd64 --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-amd64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
+  #         tar -xvf Tnn-miner-amd64-v0.4.4.tar.gz
+  #         mv ./tnn-miner-cpu ./wrappers/hiveos+mmpos/tnn-miner/tnn-miner
+  #         sed "s/^EXTERNAL_VERSION=custom/EXTERNAL_VERSION=v0.4.4/g" -i ./wrappers/hiveos+mmpos/tnn-miner/mmp-external.conf
+  #         chmod +x ./wrappers/hiveos+mmpos/tnn-miner/tnn-miner
+  #         chmod +x ./wrappers/hiveos+mmpos/tnn-miner/h-run.sh
+  #         chmod +x ./wrappers/hiveos+mmpos/tnn-miner/h-stats.sh
+  #         chmod +x ./wrappers/hiveos+mmpos/tnn-miner/mmp-stats.sh
+  #         mv ./wrappers/hiveos+mmpos/tnn-miner tnn-miner
+  #         tar -czvf tnn-miner-v0.4.4_hiveos.tar.gz  ./tnn-miner
+  #     - name: 导出构建文件
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: Tnn-miner-amd64-v0.4.4.tar.gz
+  #         path: |
+  #           Tnn-miner-amd64-v0.4.4.tar.gz
+  #           tnn-miner-v0.4.4_hiveos.tar.gz 
+
+  # Windows:
+  #   # runs-on: windows-latest
+  #   runs-on: windows-2019
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Pack
+  #     run: |
+  #       echo "running scripts in the build job"
+  #       .\scripts\prereqs.bat ci
+  #       .\scripts\build.ps1 v0.4.4
+  #       dir .\build\
+  #       dir .\build\bin\
+  #       move build\bin\tnn-miner-cpu.exe .
+  #       Compress-Archive -Path tnn-miner-cpu.exe -DestinationPath Tnn-miner-win64-v0.4.4.zip
+  #   - name: Create artifacts
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: Tnn-miner-win64-v0.4.4.zip
+  #       path: Tnn-miner-win64-v0.4.4.zip
+  build-macos:
+  # if: ${{ github.ref_name!= '' && startsWith(github.ref_name, 'v') && github.event_name == 'push' && github.run_number == 1 }}
+    runs-on: macos-latest
     steps:
-      - name: 克隆代码
+      - name: Checkout code
         uses: actions/checkout@v3
+      # - uses: maxim-lobanov/setup-xcode@v1
+      #   with:
+      #     xcode-version: latest
       - name: 设置docker
         uses: docker/setup-buildx-action@v2
-      - name: Build for Linux AMD64
+      - name: Build for macOS
         run: |
-          docker buildx build --platform=linux/amd64 --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-amd64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
-          tar -xvf Tnn-miner-amd64-v0.4.4.tar.gz
-          mv ./tnn-miner-cpu ./wrappers/hiveos+mmpos/tnn-miner/tnn-miner
-          sed "s/^EXTERNAL_VERSION=custom/EXTERNAL_VERSION=v0.4.4/g" -i ./wrappers/hiveos+mmpos/tnn-miner/mmp-external.conf
-          chmod +x ./wrappers/hiveos+mmpos/tnn-miner/tnn-miner
-          chmod +x ./wrappers/hiveos+mmpos/tnn-miner/h-run.sh
-          chmod +x ./wrappers/hiveos+mmpos/tnn-miner/h-stats.sh
-          chmod +x ./wrappers/hiveos+mmpos/tnn-miner/mmp-stats.sh
-          mv ./wrappers/hiveos+mmpos/tnn-miner tnn-miner
-          tar -czvf tnn-miner-v0.4.4_hiveos.tar.gz  ./tnn-miner
-      - name: 导出构建文件
+          docker buildx build --platform=linux/arm64 --build-arg PACKAGE_VERSION=v0.4.4 --build-arg TARGZ_FILE=Tnn-miner-arm64-v0.4.4.tar.gz --build-arg CMAKE_ARGS="-DWITH_HIP=OFF" -f docker/Dockerfile.ubu . --output ./
+      - name: Create artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Tnn-miner-amd64-v0.4.4.tar.gz
-          path: |
-            Tnn-miner-amd64-v0.4.4.tar.gz
-            tnn-miner-v0.4.4_hiveos.tar.gz 
-
-  Windows:
-    # runs-on: windows-latest
-    runs-on: windows-2019
-    steps:
-    - uses: actions/checkout@v2
-    - name: Pack
-      run: |
-        echo "running scripts in the build job"
-        .\scripts\prereqs.bat ci
-        .\scripts\build.ps1 v0.4.4
-        dir .\build\
-        dir .\build\bin\
-        move build\bin\tnn-miner-cpu.exe .
-        Compress-Archive -Path tnn-miner-cpu.exe -DestinationPath Tnn-miner-win64-v0.4.4.zip
-    - name: Create artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: Tnn-miner-win64-v0.4.4.zip
-        path: Tnn-miner-win64-v0.4.4.zip
-    # build-macos:
-    # # if: ${{ github.ref_name!= '' && startsWith(github.ref_name, 'v') && github.event_name == 'push' && github.run_number == 1 }}
-    #   runs-on: macos-latest
-    #   steps:
-    #     - name: Checkout code
-    #       uses: actions/checkout@v3
-    #     - uses: maxim-lobanov/setup-xcode@v1
-    #       with:
-    #         xcode-version: latest
-    #     - name: Build for macOS
-    #       run: |
-    #         brew install cmake
-    #         brew install openssl
-    #         brew info openssl
-    #         # brew tap homebrew/versions
-    #         # brew install llvm@18
-    #         # export PATH="/usr/local/opt/llvm@18/bin:$PATH"
-    #         export
-    #         mkdir ./build
-    #         cd ./build
-    #         export CPLUS_INCLUDE_PATH=/opt/homebrew/Cellar/openssl@3/3.3.2/include:$CPLUS_INCLUDE_PATH
-    #         export LIBRARY_PATH=/opt/homebrew/Cellar/openssl@3/3.3.2/lib:$LIBRARY_PATH
-    #         cmake -DTNN_VERSION=v0.4.4 ..
-    #         make -j$(nproc)
-    #         cd ../
-    #         mv ./build/Tnn-miner-cpu ./Tnn-miner
-    #         tar -czvf Tnn-miner-macos-arm64-v0.4.4.tar.gz ./Tnn-miner
-    #     - name: Create artifacts
-    #       uses: actions/upload-artifact@v3
-    #       with:
-    #         name: Tnn-miner-macos-arm64-v0.4.4.tar.gz
-    #         path: Tnn-miner-macos-arm64-v0.4.4.tar.gz
+          name: Tnn-miner-arm64-v0.4.4.tar.gz
+          path: Tnn-miner-arm64-v0.4.4.tar.gz
